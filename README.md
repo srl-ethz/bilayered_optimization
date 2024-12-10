@@ -1,8 +1,6 @@
-# Differentiable Projective Dynamics
+# Bilayer Simulations
 
-On this tutorial branch you will find several simple examples demonstrating the capabilities of DiffPD. It is an easy way to get started and understand all different parts of DiffPD.
-
-Note: this is a fork of https://github.com/mit-gfx/diff_pd
+We simulate the bilayered structures using DiffPD (https://github.com/mit-gfx/diff_pd). In this document we describe the examples to run for generating the results in the paper.
 
 
 ## Recommended systems
@@ -13,10 +11,10 @@ Note: this is a fork of https://github.com/mit-gfx/diff_pd
 
 ## Installation
 ```
-git clone --recursive git@github.com:srl-ethz/diff_pd.git
-cd diff_pd
+git clone --recursive git@github.com:srl-ethz/bilayered_optimization.git
+cd bilayered_optimization
 conda env create -f environment.yml
-conda activate diff_pd
+conda activate diffPD
 ./install.sh
 ```
 We run optimization with PyTorch, hence, depending on your system, a different PyTorch version might be required for different CUDA installations. Something like `pip install torch==1.10.2+cu113 torchvision==0.11.3+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html` should do the job.
@@ -28,7 +26,6 @@ If you would like to enable multi-threading, set the thread_ct in the options ob
 ## Examples
 Navigate to the `python/example` path and run `python [example_name].py` where the `example_name` could be the following:
 
-- `simple_forward.py`: Run the example without any arguments and it will generate a falling beam under gravity. The visualization takes a while, but will in the end create a video. A plot is also created showing the movement of the center of mass in vertical direction. We use the "Beam" environment, which creates a 10cm x 10cm x 30cm beam made of 0.1MPa elastic material, with one face fixed on a wall.
-- `simple_backward.py`: Optimize the external force applied on the 3D beam to reach a target location leveraging the differentiable nature of DiffPD.
-- `loss_landscape1D.py`: Runs a sweep of 1D parameters for the 3D beam, computing the loss and gradients for each parameter and plotting them. Shows how the optimization "landscape" looks like, and compares the DiffPD gradients to numerical gradients.
-- `fish_fext_optim.py`: Loads a triangular mesh from an external file and optimizes the external force (time-dependent in x-direction) to get the center of mass position to reach a target location. 
+- `swimmer.py`: The most basic simulation that will generate a swimmer simulation environment, where the mesh resolution and materials are defined. The option exists to sweep over different geometries in this file.
+- `opt_swimmer_GA.py`: Runs a genetic algorithm from PyGAD to optimize the swimmer defined in swimmer.py environment.
+- `swimmer_stiffness_sweep.py`: Runs a sweep of the stiffness of the scaffold to see how the ratio between the muscle and scaffold stiffness impacts the final deformation.
